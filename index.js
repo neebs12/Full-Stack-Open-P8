@@ -89,6 +89,11 @@ let books = [
 ]
 
 const typeDefs = gql`
+  type Author {
+    name: String!
+    bookCount: Int!
+  }
+
   type Book {
     title: String!
     author: String!
@@ -100,6 +105,7 @@ const typeDefs = gql`
     bookCount: Int!
     authorCount: Int!
     allBooks: [Book!]!
+    allAuthors: [Author!]!
   }
 `
 
@@ -112,6 +118,19 @@ const resolvers = {
         return {...b} // matches schema of [String!]!
       })
     },
+    allAuthors: () => {
+      let aryObj = []
+      // iterate over authors, push a new elemnt
+      authors.forEach(author => {
+        aryObj.push({
+          name: author.name,
+          bookCount: books.filter(b => b.author === author.name).length
+        })
+      })
+      // required structure:
+      // [{name: 'Jason', bookCount: 4}, {...}, ...]
+      return aryObj
+    }
   }
 }
 
