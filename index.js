@@ -190,7 +190,7 @@ const resolvers = {
       if (!existingAuthor) return null
       // author thus exists!, update the authors state
       existingAuthor.born = modifiedAuthor.born
-      authors = copiedAuthors // <== change states!
+      authors = copiedAuthors // <== reassg to change states!
       return modifiedAuthor
     }
   }
